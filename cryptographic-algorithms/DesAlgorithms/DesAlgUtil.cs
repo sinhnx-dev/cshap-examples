@@ -39,9 +39,7 @@ namespace DesAlgorithms{
                 cStream.Write(toEncrypt, 0, toEncrypt.Length);
                 cStream.FlushFinalBlock();
 
-                // Get an array of bytes from the 
-                // MemoryStream that holds the 
-                // encrypted data.
+                // Get an array of bytes from the MemoryStream that holds the encrypted data.
                 byte[] ret = mStream.ToArray();
 
                 // Close the streams.
@@ -62,12 +60,10 @@ namespace DesAlgorithms{
         {
             try
             {
-                // Create a new MemoryStream using the passed 
-                // array of encrypted data.
+                // Create a new MemoryStream using the passed array of encrypted data.
                 MemoryStream msDecrypt = new MemoryStream(Data);
 
-                // Create a CryptoStream using the MemoryStream 
-                // and the passed key and initialization vector (IV).
+                // Create a CryptoStream using the MemoryStream and the passed key and initialization vector (IV).
                 CryptoStream csDecrypt = new CryptoStream(msDecrypt,
                     DES.Create().CreateDecryptor(Key, IV),
                     CryptoStreamMode.Read);
@@ -75,8 +71,7 @@ namespace DesAlgorithms{
                 // Create buffer to hold the decrypted data.
                 byte[] fromEncrypt = new byte[Data.Length];
 
-                // Read the decrypted data out of the crypto stream
-                // and place it into the temporary buffer.
+                // Read the decrypted data out of the crypto stream and place it into the temporary buffer.
                 csDecrypt.Read(fromEncrypt, 0, fromEncrypt.Length);
 
                 //Convert the buffer into a string and return it.

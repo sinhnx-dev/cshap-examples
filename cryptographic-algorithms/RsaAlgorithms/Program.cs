@@ -15,14 +15,12 @@ try
     byte[] encryptedData;
     byte[] decryptedData;
 
-    //Create a new instance of RSACryptoServiceProvider to generate
-    //public and private key data.
+    //Create a new instance of RSACryptoServiceProvider to generate public and private key data.
     using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
     {
-
         //Pass the data to ENCRYPT, the public key information (using RSACryptoServiceProvider.ExportParameters(false), and a boolean flag specifying no OAEP padding.
         encryptedData = RsaAlgUtil.RSAEncrypt(dataToEncrypt, RSA.ExportParameters(false), false);
-        Console.WriteLine("encrypted message: "+  Convert.ToBase64String(encryptedData));
+        Console.WriteLine("encrypted message: " + Convert.ToBase64String(encryptedData));
 
         //Pass the data to DECRYPT, the private key information (using RSACryptoServiceProvider.ExportParameters(true), and a boolean flag specifying no OAEP padding.
         decryptedData = RsaAlgUtil.RSADecrypt(encryptedData, RSA.ExportParameters(true), false);

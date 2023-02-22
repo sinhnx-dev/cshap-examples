@@ -13,12 +13,10 @@ namespace RsaAlgorithms
                 //Create a new instance of RSACryptoServiceProvider.
                 using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
                 {
-
                     //Import the RSA Key information. This only needs toinclude the public key information.
                     RSA.ImportParameters(RSAKeyInfo);
 
-                    //Encrypt the passed byte array and specify OAEP padding.  
-                    //OAEP padding is only available on Microsoft Windows XP or later.  
+                    //Encrypt the passed byte array and specify OAEP padding. OAEP padding is only available on Microsoft Windows XP or later.  
                     encryptedData = RSA.Encrypt(DataToEncrypt, DoOAEPPadding);
                 }
                 return encryptedData;
@@ -39,12 +37,10 @@ namespace RsaAlgorithms
                 //Create a new instance of RSACryptoServiceProvider.
                 using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
                 {
-                    //Import the RSA Key information. This needs
-                    //to include the private key information.
+                    //Import the RSA Key information. This needs to include the private key information.
                     RSA.ImportParameters(RSAKeyInfo);
 
-                    //Decrypt the passed byte array and specify OAEP padding.
-                    //OAEP padding is only available on Microsoft Windows XP orlater.  
+                    //Decrypt the passed byte array and specify OAEP padding. OAEP padding is only available on Microsoft Windows XP orlater.  
                     decryptedData = RSA.Decrypt(DataToDecrypt, DoOAEPPadding);
                 }
                 return decryptedData;

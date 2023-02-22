@@ -17,13 +17,19 @@ Console.WriteLine("decrypted message: " + strDecrypted);
 // This generates a new key and initialization vector (IV).
 using (var myAes = Aes.Create())
 {
-    // Encrypt the string to an array of bytes.
-    byte[] encrypted = AesAlgUtil.EncryptStringToBytes_Aes(msg, myAes.Key, myAes.IV);
+    try
+    {
+        // Encrypt the string to an array of bytes.
+        byte[] encrypted = AesAlgUtil.EncryptStringToBytes_Aes(msg, myAes.Key, myAes.IV);
+        // Decrypt the bytes to a string.
+        string roundtrip = AesAlgUtil.DecryptStringFromBytes_Aes(encrypted, myAes.Key, myAes.IV);
 
-    // Decrypt the bytes to a string.
-    string roundtrip = AesAlgUtil.DecryptStringFromBytes_Aes(encrypted, myAes.Key, myAes.IV);
-
-    //Display the original data and the decrypted data.
-    Console.WriteLine("Original:   {0}", msg);
-    Console.WriteLine("Round Trip: {0}", roundtrip);
+        //Display the original data and the decrypted data.
+        Console.WriteLine("Original:   {0}", msg);
+        Console.WriteLine("Round Trip: {0}", roundtrip);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error... {ex.Message}");
+    }
 }
