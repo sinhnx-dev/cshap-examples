@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using MySqlConnector;
 using ThreeLayerLib.Persistence;
 
@@ -15,9 +13,9 @@ namespace ThreeLayerLib.DAL
             connection = DbConfig.GetConnection();
             query = "";
         }
-        public Customer GetById(int customerId)
+        public Customer? GetById(int customerId)
         {
-            Customer c = new Customer();
+            Customer? c = null;
             try
             {
                 connection.Open();
@@ -46,9 +44,9 @@ namespace ThreeLayerLib.DAL
             c.CustomerAddress = reader.GetString("customer_address");
             return c;
         }
-        public int? AddCustomer(Customer c)
+        public int AddCustomer(Customer c)
         {
-            int? result = null;
+            int result = 0;
             if (connection.State == System.Data.ConnectionState.Closed)
             {
                 connection.Open();

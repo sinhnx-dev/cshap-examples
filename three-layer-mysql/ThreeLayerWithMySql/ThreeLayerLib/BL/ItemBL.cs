@@ -13,7 +13,7 @@ namespace ThreeLayerLib.BL
         }
         public List<Item> GetAll()
         {
-            return idal.GetItems(ItemFilter.GET_ALL, null);
+            return idal.GetItems(ItemFilter.GET_ALL, new Item());
         }
         public List<Item> GetByName(string itemName)
         {

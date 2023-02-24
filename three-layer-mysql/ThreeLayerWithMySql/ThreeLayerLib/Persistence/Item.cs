@@ -1,33 +1,38 @@
 ﻿namespace ThreeLayerLib.Persistence
 {
-  public static class ItemStatus
-  {
-    public const int NOT_ACTIVE = 0;
-    public const int ACTIVE = 1;
-  }
-
-  public class Item
-  {
-    public int? ItemId { set; get; }
-    public string? ItemName { set; get; }
-    public decimal ItemPrice { set; get; }
-    public int? Amount { set; get; }
-    public int? Status { set; get; }
-    public string? Description { set; get; }
-
-    public override bool Equals(object? obj)
+    public static class ItemStatus
     {
-      if(obj == null) return false;
-      if (obj is Item)
-      {
-        return ((Item)obj).ItemId.Equals(ItemId);
-      }
-      return false;
+        public const int NOT_ACTIVE = 0;
+        public const int ACTIVE = 1;
     }
 
-    public override int GetHashCode()
+    public class Item
     {
-      return ItemId.GetHashCode();
+        public int ItemId { set; get; }
+        public string ItemName { set; get; }
+        public decimal ItemPrice { set; get; }
+        public int Amount { set; get; }
+        public int Status { set; get; }
+        public string? Description { set; get; }
+
+        public Item()
+        {
+            ItemName = "no name";
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null) return false;
+            if (obj is Item)
+            {
+                return ((Item)obj).ItemId.Equals(ItemId);
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return ItemId.GetHashCode();
+        }
     }
-  }
 }

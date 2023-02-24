@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using MySqlConnector;
 using ThreeLayerLib.Persistence;
 
@@ -48,32 +46,23 @@ namespace ThreeLayerLib.DAL
             item.Description = reader.GetString("item_description");
             return item;
         }
-        public List<Item> GetItems(int itemFilter, Item? item)
+        public List<Item> GetItems(int itemFilter, Item item)
         {
             List<Item> lst = new List<Item>();
             try
             {
                 connection.Open();
                 MySqlCommand command = new MySqlCommand("", connection);
-
-                if (item == null)
+                switch (itemFilter)
                 {
-                    query = "select item_id, item_name, unit_price, amount, item_status, ifnull(item_description, '') as item_description from Items";
-                }
-                else
-                {
-
-                    switch (itemFilter)
-                    {
-                        case ItemFilter.GET_ALL:
-                            query = @"select item_id, item_name, unit_price, amount, item_status, ifnull(item_description, '') as item_description from Items";
-                            break;
-                        case ItemFilter.FILTER_BY_ITEM_NAME:
-                            query = @"select item_id, item_name, unit_price, amount, item_status, ifnull(item_description, '') as item_description from Items
+                    case ItemFilter.GET_ALL:
+                        query = @"select item_id, item_name, unit_price, amount, item_status, ifnull(item_description, '') as item_description from Items";
+                        break;
+                    case ItemFilter.FILTER_BY_ITEM_NAME:
+                        query = @"select item_id, item_name, unit_price, amount, item_status, ifnull(item_description, '') as item_description from Items
                                 where item_name like concat('%',@itemName,'%');";
-                            command.Parameters.AddWithValue("@itemName", item.ItemName);
-                            break;
-                    }
+                        command.Parameters.AddWithValue("@itemName", item.ItemName);
+                        break;
                 }
                 command.CommandText = query;
                 MySqlDataReader reader = command.ExecuteReader();

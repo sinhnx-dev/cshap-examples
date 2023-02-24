@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using ThreeLayerLib.Persistence;
 using ThreeLayerLib.DAL;
 
