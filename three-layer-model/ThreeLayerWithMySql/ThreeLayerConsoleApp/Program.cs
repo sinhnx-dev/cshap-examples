@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using ThreeLayerLib.Persistence;
 using ThreeLayerLib.BL;
 
@@ -57,27 +57,45 @@ namespace ThreeLayerConsoleApp
                                     break;
                                 case 2:
                                     lst = ibl.GetAll();
-                                    Console.WriteLine("\nItem Count: " + lst.Count);
+                                    if (lst.Count > 0)
+                                    {
+                                        ShowItems("All items:", lst);
+                                    }
                                     break;
                                 case 3:
-                                    lst = ibl.GetByName("I");
-                                    Console.WriteLine("\nItem Count By Name: " + lst.Count);
+                                    Console.Write("Input item name to search: ");
+                                    string n = Console.ReadLine() ?? "";
+                                    lst = ibl.GetByName(n);
+                                    Console.WriteLine("\n" + lst.Count);
+                                    if (lst.Count > 0)
+                                    {
+                                        ShowItems($"Item Count By Name: {n}", lst);
+                                    }
                                     break;
                             }
                         } while (imChoose != imMenu.Length);
                         break;
                     case 2:
-                        Customer c = new Customer {CustomerName="Nguyen Thi Nhi", CustomerAddress="Ha Tay"};
-                        Console.WriteLine("Customer ID: " + cbl.AddCustomer(c));
+                        Console.WriteLine("-> New Customer");
+                        Console.Write("Customer Name: ");
+                        string name = Console.ReadLine() ?? "no name";
+                        Console.Write("Customer Address: ");
+                        string address = Console.ReadLine() ?? "";
+                        Customer c = new Customer { CustomerName = name, CustomerAddress = address };
+                        c.CustmerId = cbl.AddCustomer(c);
+                        if (c.CustmerId > 0)
+                        {
+                            Console.WriteLine($"Add customer completed with customer id {c.CustmerId}");
+                        }
                         break;
                     case 3:
                         Order order = new Order();
                         //new customer
                         //order.OrderCustomer = new Customer { CustmerId = null, CustomerName = "Nguyen Xuan Sinh", CustomerAddress = "Hanoi" };
-                        
+
                         //exists customer
                         order.OrderCustomer = new Customer { CustmerId = 1, CustomerName = "Nguyen Xuan Sinh", CustomerAddress = "Hanoi" };
-                        
+
                         order.ItemsList.Add(ibl.GetItemById(2));
                         order.ItemsList[0].Amount = 1;
                         order.ItemsList.Add(ibl.GetItemById(3));
@@ -86,6 +104,19 @@ namespace ThreeLayerConsoleApp
                         break;
                 }
             } while (mainChoose != mainMenu.Length);
+        }
+
+        private static void ShowItems(string title, List<Item> lst)
+        {
+            Console.WriteLine(title);
+            Console.WriteLine(@"+---------+-----------+------------+--------+-------------+------------------+
+| item_id | item_name | unit_price | amount | item_status | item_description |
++---------+-----------+------------+--------+-------------+------------------+");
+            foreach (Item item in lst)
+            {
+                Console.WriteLine("| {0, 7:N0} | {1, 9} | {2, 10:N2} | {3, 6:N0} | {4, 11:N0} | {5, 16} |", item.ItemId, item.ItemName, item.ItemPrice, item.Amount, item.Status, item.Description);
+            }
+            Console.WriteLine(@"+---------+-----------+------------+--------+-------------+------------------+");
         }
 
         private static short Menu(string title, string[] menuItems)
@@ -110,7 +141,7 @@ namespace ThreeLayerConsoleApp
                 Console.Write("Your choice: ");
                 try
                 {
-                    choose = Int16.Parse(Console.ReadLine()?? "0");
+                    choose = Int16.Parse(Console.ReadLine() ?? "0");
                 }
                 catch
                 {

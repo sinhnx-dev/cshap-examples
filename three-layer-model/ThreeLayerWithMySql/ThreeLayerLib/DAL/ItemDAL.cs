@@ -18,7 +18,6 @@ namespace ThreeLayerLib.DAL
             Item item = new Item();
             try
             {
-                connection.Open();
                 query = @"select item_id, item_name, unit_price, amount, item_status,
                         ifnull(item_description, '') as item_description
                         from Items where item_id=@itemId;";
@@ -32,7 +31,6 @@ namespace ThreeLayerLib.DAL
                 reader.Close();
             }
             catch { }
-            finally { connection.Close(); }
             return item;
         }
         internal Item GetItem(MySqlDataReader reader)
@@ -51,7 +49,6 @@ namespace ThreeLayerLib.DAL
             List<Item> lst = new List<Item>();
             try
             {
-                connection.Open();
                 MySqlCommand command = new MySqlCommand("", connection);
                 switch (itemFilter)
                 {
@@ -74,10 +71,6 @@ namespace ThreeLayerLib.DAL
                 reader.Close();
             }
             catch { }
-            finally
-            {
-                connection.Close();
-            }
             return lst;
         }
     }

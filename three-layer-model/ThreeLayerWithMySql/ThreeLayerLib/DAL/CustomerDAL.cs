@@ -18,7 +18,6 @@ namespace ThreeLayerLib.DAL
             Customer? c = null;
             try
             {
-                connection.Open();
                 query = @"select customer_id, customer_name,
                         ifnull(customer_address, '') as customer_address
                         from Customers where customer_id=" + customerId + ";";
@@ -30,10 +29,6 @@ namespace ThreeLayerLib.DAL
                 reader.Close();
             }
             catch { }
-            finally
-            {
-                connection.Close();
-            }
             return c;
         }
         internal Customer GetCustomer(MySqlDataReader reader)
