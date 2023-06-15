@@ -59,18 +59,21 @@ namespace ThreeLayerConsoleApp
                                     lst = ibl.GetAll();
                                     if (lst.Count > 0)
                                     {
-                                        ShowItems("All items:", lst);
+                                        ShowItems("-> All items:", lst);
                                     }
+                                    Console.WriteLine("\n    Press Enter key to back menu...");
+                                    Console.ReadLine();
                                     break;
                                 case 3:
                                     Console.Write("Input item name to search: ");
                                     string n = Console.ReadLine() ?? "";
                                     lst = ibl.GetByName(n);
-                                    Console.WriteLine("\n" + lst.Count);
                                     if (lst.Count > 0)
                                     {
-                                        ShowItems($"Item Count By Name: {n}", lst);
+                                        ShowItems($"-> Item By Name: {n}", lst);
                                     }
+                                    Console.WriteLine("\n   Press Enter key to back menu...");
+                                    Console.ReadLine();
                                     break;
                             }
                         } while (imChoose != imMenu.Length);
@@ -87,6 +90,8 @@ namespace ThreeLayerConsoleApp
                         {
                             Console.WriteLine($"Add customer completed with customer id {c.CustmerId}");
                         }
+                        Console.WriteLine("\n    Press Enter key to back menu...");
+                        Console.ReadLine();
                         break;
                     case 3:
                         Order order = new Order();
@@ -100,7 +105,10 @@ namespace ThreeLayerConsoleApp
                         order.ItemsList[0].Amount = 1;
                         order.ItemsList.Add(ibl.GetItemById(3));
                         order.ItemsList[1].Amount = 2;
+
                         Console.WriteLine("Create Order: " + (obl.CreateOrder(order) ? "completed!" : "not complete!"));
+                        Console.WriteLine("\n    Press Enter key to back menu...");
+                        Console.ReadLine();
                         break;
                 }
             } while (mainChoose != mainMenu.Length);
@@ -114,7 +122,8 @@ namespace ThreeLayerConsoleApp
 +---------+-----------+------------+--------+-------------+------------------+");
             foreach (Item item in lst)
             {
-                Console.WriteLine("| {0, 7:N0} | {1, 9} | {2, 10:N2} | {3, 6:N0} | {4, 11:N0} | {5, 16} |", item.ItemId, item.ItemName, item.ItemPrice, item.Amount, item.Status, item.Description);
+                Console.WriteLine("| {0, 7:N0} | {1, -9} | {2, 10:N2} | {3, 6:N0} | {4, -11} | {5, -16} |",
+                item.ItemId, item.ItemName, item.ItemPrice, item.Amount, item.Status == 1 ? "Active" : "Inactive", item.Description);
             }
             Console.WriteLine(@"+---------+-----------+------------+--------+-------------+------------------+");
         }
