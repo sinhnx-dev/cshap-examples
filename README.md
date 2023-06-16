@@ -7,3 +7,6 @@
 ### MultiThreading
 ### Network Programming
 ### Cryptographic Algirithms
+### TDD
+### Design Pattern
+### 3 Layer Architecture
