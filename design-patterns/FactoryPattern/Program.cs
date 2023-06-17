@@ -12,5 +12,5 @@ if (shape2 != null) shape2.Draw();
 
 //get an object of Square and call its draw method.
 Shape? shape3 = shapeFactory.GetShape("SQUARE");
-//call draw method of square
+//call draw method of Square
 if (shape3 != null) shape3.Draw();
