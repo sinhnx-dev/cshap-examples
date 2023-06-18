@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SinhNX.Lib\SinhNX.Lib.csproj" />
+    <ProjectReference Include="..\SinhNxLib\SinhNxLib.csproj" />
   </ItemGroup>
 
 </Project>

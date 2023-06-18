@@ -1,4 +1,4 @@
-namespace SinhNX.Lib.Test;
+namespace SinhNxLib.Test;
 
 public class QuadraticEquation2Test
 {
@@ -11,7 +11,7 @@ public class QuadraticEquation2Test
     qe2.C = 4;
     double[] expected = { };
     double[] result = qe2.SolveEquation();
-    Assert.Equal(result.Length, 0);
+    Assert.Equal(result, expected);
   }
   [Fact]
   public void SolveEquationTest1()
