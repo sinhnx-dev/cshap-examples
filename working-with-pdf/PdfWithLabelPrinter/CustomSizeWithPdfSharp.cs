@@ -56,7 +56,7 @@ public class CustomPageSize
         GlobalFontSettings.FontResolver = new CustomFontResolver();
         XFont customFont = new XFont("MyCustomFont", 9, XFontStyleEx.Regular);
         gfx.DrawString("Nước CHXHCN Việt Nam", customFont, XBrushes.Black,
-            new XRect(0, 0, page.Width, page.Height), XStringFormats.Center);
+            new XRect(0, 0, page.Width.Point, page.Height.Point), XStringFormats.Center);
 
         // Save the document
         document.Save(filename);
@@ -66,7 +66,7 @@ public class CustomPageSize
 
 public class CustomFontResolver : IFontResolver
 {
-    public FontResolverInfo ResolveTypeface(string familyName, bool isBold, bool isItalic)
+    public FontResolverInfo? ResolveTypeface(string familyName, bool isBold, bool isItalic)
     {
         // Map your desired font family name to the actual font file details
         if (familyName.Equals("MyCustomFont", StringComparison.OrdinalIgnoreCase))
@@ -81,7 +81,7 @@ public class CustomFontResolver : IFontResolver
         return null;
     }
 
-    public byte[] GetFont(string typefaceName)
+    public byte[]? GetFont(string typefaceName)
     {
         // Load the font data from your custom font files
         switch (typefaceName)
