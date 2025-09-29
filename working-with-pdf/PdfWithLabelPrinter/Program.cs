@@ -1,2 +1,2 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿CustomPageSize.CreatePdfWithCustomSize("CustomSizePdf.pdf", CustomPageSize.SizeUnit.Millimeter, 40, 30);
+PrintPdfToPrinter.Print("CustomSizePdf.pdf");
