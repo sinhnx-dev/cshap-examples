@@ -1,3 +1,4 @@
+using System.Diagnostics;
 public class PrintPdfToPrinter
 {
     public static void Print(string filename)
@@ -15,6 +16,31 @@ public class PrintPdfToPrinter
         {
             case PlatformID.Win32S:
                 Console.WriteLine("Running on Win32s");
+                // Check if the file exists
+                if (!File.Exists(filename))
+                {
+                    throw new FileNotFoundException("The specified PDF file was not found.", filename);
+                }
+
+                // Configure the process to use the "print" verb
+                ProcessStartInfo psi = new ProcessStartInfo()
+                {
+                    FileName = filename,
+                    Verb = "print", // Tells Windows to print using the default PDF app
+                    UseShellExecute = true, // Required for using file verbs
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden
+                };
+
+                try
+                {
+                    Process.Start(psi);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred while attempting to print the PDF: {ex.Message}");
+                    // Depending on your application, you may want to handle specific exceptions
+                }
                 break;
             case PlatformID.Win32Windows:
                 Console.WriteLine("Running on Windows 95/98/ME");
@@ -32,7 +58,7 @@ public class PrintPdfToPrinter
                 break;
             case PlatformID.Unix:
                 Console.WriteLine("Running on Unix/Linux");
-                //System.Diagnostics.Process.Start("lpr", "customSizePdf.pdf");
+                //Process.Start("lpr", "customSizePdf.pdf");
                 break;
             default:
                 Console.WriteLine("Unknown platform");
