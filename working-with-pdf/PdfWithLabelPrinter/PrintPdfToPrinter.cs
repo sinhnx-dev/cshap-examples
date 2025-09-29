@@ -3,9 +3,13 @@ public class PrintPdfToPrinter
 {
     public static void Print(string filename)
     {
-        Console.WriteLine($"Printing PDF file: {filename}");
-        OperatingSystem os = Environment.OSVersion;
+        // Check if the file exists
+        if (!File.Exists(filename))
+        {
+            throw new FileNotFoundException("The specified PDF file was not found.", filename);
+        }
 
+        OperatingSystem os = Environment.OSVersion;
         Console.WriteLine($"Platform: {os.Platform}");
         Console.WriteLine($"Version: {os.Version}");
         Console.WriteLine($"Version String: {os.VersionString}");
@@ -16,11 +20,6 @@ public class PrintPdfToPrinter
         {
             case PlatformID.Win32S:
                 Console.WriteLine("Running on Win32s");
-                // Check if the file exists
-                if (!File.Exists(filename))
-                {
-                    throw new FileNotFoundException("The specified PDF file was not found.", filename);
-                }
 
                 // Configure the process to use the "print" verb
                 ProcessStartInfo psi = new ProcessStartInfo()
