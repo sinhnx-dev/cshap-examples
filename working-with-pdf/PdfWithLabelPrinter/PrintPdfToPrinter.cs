@@ -1,7 +1,7 @@
-using System.Diagnostics;
+using PDFtoPrinter;
 public class PrintPdfToPrinter
 {
-    public static void Print(string filename)
+    public static void PrintFile(string filename)
     {
         // Check if the file exists
         if (!File.Exists(filename))
@@ -20,32 +20,15 @@ public class PrintPdfToPrinter
         {
             case PlatformID.Win32S:
                 Console.WriteLine("Running on Win32s");
-
-                // Configure the process to use the "print" verb
-                ProcessStartInfo psi = new ProcessStartInfo()
-                {
-                    FileName = filename,
-                    Verb = "print", // Tells Windows to print using the default PDF app
-                    UseShellExecute = true, // Required for using file verbs
-                    CreateNoWindow = true,
-                    WindowStyle = ProcessWindowStyle.Hidden
-                };
-
-                try
-                {
-                    Process.Start(psi);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"An error occurred while attempting to print the PDF: {ex.Message}");
-                    // Depending on your application, you may want to handle specific exceptions
-                }
                 break;
             case PlatformID.Win32Windows:
                 Console.WriteLine("Running on Windows 95/98/ME");
                 break;
             case PlatformID.Win32NT:
                 Console.WriteLine("Running on Windows NT/2000/XP/Vista/7/8/10/11");
+                var printTimeout = new TimeSpan(0, 30, 0);
+                var printer = new PDFtoPrinterPrinter();
+                printer.Print(new PrintingOptions("Clabel- CT221B", filename), printTimeout);
                 break;
             case PlatformID.WinCE:
                 Console.WriteLine("Running on Windows CE");
@@ -57,7 +40,7 @@ public class PrintPdfToPrinter
                 break;
             case PlatformID.Unix:
                 Console.WriteLine("Running on Unix/Linux");
-                //Process.Start("lpr", "customSizePdf.pdf");
+                System.Diagnostics.Process.Start("lpr", "customSizePdf.pdf");      
                 break;
             default:
                 Console.WriteLine("Unknown platform");
