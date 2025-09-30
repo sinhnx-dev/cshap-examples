@@ -19,20 +19,17 @@ foreach (string msg in msgs)
 }
 
 Console.Write("Input a string: ");
-string str = Console.ReadLine();
-Console.WriteLine("str = " + str);
+string? str = Console.ReadLine();
+Console.WriteLine("str = " + str ?? "null");
 
 Console.Write("Input an integer number: ");
 str = Console.ReadLine();
 int iNum;
-// iNum = int.Parse(str);
-
 if (int.TryParse(str, out iNum))
 {
-    // Console.WriteLine("i = {0}", iNum);
     Console.WriteLine($"i = {iNum}");
 }
 else
 {
-    Console.WriteLine("{0} not is int number.", str);
+    Console.WriteLine($"\"{str}\" not is int number.");
 }

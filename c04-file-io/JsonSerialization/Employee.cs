@@ -6,6 +6,7 @@ public class Employee
     public Department EmpDepartment { get; set; }
     public Employee()
     {
+        EmpId = "id";
         Name = "";
         Salary = 0;
         EmpDepartment = new Department();
